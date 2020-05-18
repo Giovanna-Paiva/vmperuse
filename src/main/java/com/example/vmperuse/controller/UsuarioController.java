@@ -1,7 +1,10 @@
 package com.example.vmperuse.controller;
 
+import java.util.ArrayList;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -20,11 +23,15 @@ public class UsuarioController {
 		Usuario logado = dao.findByEmailAndSenha(incompleto.getEmail(), incompleto.getSenha());
 		if (logado != null) {
 			return ResponseEntity.ok(logado);
-		}
-		else 
-		{
+		} else {
 			return ResponseEntity.notFound().build();
 		}
 
+	}
+
+	@GetMapping("/usuarios")
+	public ResponseEntity<ArrayList<Usuario>> buscarTodos() {
+		ArrayList lista = (ArrayList<Usuario>) dao.findAll();
+		return ResponseEntity.ok(lista);
 	}
 }
