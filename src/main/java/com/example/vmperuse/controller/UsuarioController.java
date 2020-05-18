@@ -21,12 +21,15 @@ public class UsuarioController {
 	@PostMapping("/login")
 	public ResponseEntity<Usuario> loginPorEmail(@RequestBody Usuario incompleto) {
 		Usuario logado = dao.findByEmailAndSenha(incompleto.getEmail(), incompleto.getSenha());
-		if (logado != null) {
-			return ResponseEntity.ok(logado);
-		} else {
-			return ResponseEntity.notFound().build();
+		try {
+			if (logado != null) {
+				return ResponseEntity.ok(logado);
+			} else {
+				return ResponseEntity.notFound().build();
+			}
+		} catch (Exception ex) {
+			return ResponseEntity.status(500).build();
 		}
-
 	}
 
 	@GetMapping("/usuarios")
