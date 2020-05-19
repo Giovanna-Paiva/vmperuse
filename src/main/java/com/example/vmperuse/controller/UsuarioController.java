@@ -34,7 +34,7 @@ public class UsuarioController {
 
 	@GetMapping("/usuarios")
 	public ResponseEntity<ArrayList<Usuario>> buscarTodos() {
-		ArrayList lista = (ArrayList<Usuario>) dao.findAll();
+		ArrayList<Usuario> lista = (ArrayList<Usuario>) dao.findAll();
 		return ResponseEntity.ok(lista);
 	}
 }
