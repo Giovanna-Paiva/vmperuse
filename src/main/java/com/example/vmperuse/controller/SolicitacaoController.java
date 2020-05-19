@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.vmperuse.dao.SolicitacaoDAO;
+import com.example.vmperuse.model.Item;
 import com.example.vmperuse.model.Solicitacao;
 
 @RestController
@@ -18,6 +19,9 @@ public class SolicitacaoController {
 	@PostMapping("/solicitacoes/nova")
 	public ResponseEntity<Solicitacao> adicionarSolicitacao(@RequestBody Solicitacao nova) {
 		try {
+			for (Item it : nova.getItensSolicitacao()) {
+				it.setSolicitacao(nova);
+			}
 			sdao.save(nova);
 			return ResponseEntity.ok(nova);
 		} catch (Exception ex) {
